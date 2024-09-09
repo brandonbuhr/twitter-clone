@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { auth } from "@/firebase";
@@ -36,6 +37,14 @@ export default function SignupModal() {
     });
 
     router.reload();
+  }
+
+  async function handleGuestSignIn() {
+    await signInWithEmailAndPassword(
+      auth,
+      "guest79284361@gmail.com",
+      "whatasow"
+    );
   }
 
   useEffect(() => {
@@ -75,7 +84,11 @@ export default function SignupModal() {
         "
         >
           <div className="w-[90%] mt-8 flex flex-col">
-            <button className="bg-white text-black w-full font-bold text-lg p-2 rounded-md">
+            <button
+              className="bg-white text-black w-full font-bold 
+            text-lg p-2 rounded-md"
+              onClick={handleGuestSignIn}
+            >
               Sign In as Guest
             </button>
             <h1 className="text-center mt-4 font-bold text-lg">or</h1>
