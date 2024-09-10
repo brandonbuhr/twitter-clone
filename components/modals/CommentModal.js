@@ -1,5 +1,5 @@
 import { closeCommentModal } from "@/redux/modalSlice";
-import { Modal } from "@mui/material/Modal";
+import { Modal } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function CommentModal() {
