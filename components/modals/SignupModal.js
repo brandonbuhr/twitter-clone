@@ -32,7 +32,7 @@ export default function SignupModal() {
     await updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: `./assets/profilePictures/pfp${Math.ceil(
-        Math.random() * 5
+        Math.random() * 6
       )}.png`,
     });
 

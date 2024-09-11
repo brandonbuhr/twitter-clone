@@ -58,7 +58,7 @@ export default function Sidebar() {
         >
           <img
             className="w-10 h-10 rounded-full object-cover"
-            src={user.photoUrl || "/assets/kylie.png"}
+            src={user.photoUrl || "/assets/twitter-brands-solid.svg"}
           />
           <div className="hidden xl:inline">
             <h1 className="font-bold whitespace-nowrap">{user.name}</h1>
