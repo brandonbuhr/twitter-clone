@@ -1,15 +1,21 @@
 import { db } from "@/firebase";
-import { openCommentModal, setCommentTweet } from "@/redux/modalSlice";
+import {
+  openCommentModal,
+  openLoginModal,
+  setCommentTweet,
+} from "@/redux/modalSlice";
 import {
   ChartBarIcon,
   ChatIcon,
   HeartIcon,
+  TrashIcon,
   UploadIcon,
 } from "@heroicons/react/outline";
 import { HeartIcon as FilledHeartIcon } from "@heroicons/react/solid";
 import {
   arrayRemove,
   arrayUnion,
+  deleteDoc,
   doc,
   onSnapshot,
   updateDoc,
@@ -28,8 +34,18 @@ export default function Tweet({ data, id }) {
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
 
+  async function deleteTweet(e) {
+    e.stopPropagation();
+    await deleteDoc(doc(db, "posts", id));
+  }
+
   async function likeComment(e) {
     e.stopPropagation();
+
+    if (!user.username) {
+      dispatch(openLoginModal());
+      return;
+    }
 
     if (likes.includes(user.uid)) {
       await updateDoc(doc(db, "posts", id), {
@@ -45,8 +61,8 @@ export default function Tweet({ data, id }) {
   useEffect(() => {
     if (!id) return;
     const unsubscribe = onSnapshot(doc(db, "posts", id), (doc) => {
-      setLikes(doc.data().likes);
-      setComments(doc.data().comments);
+      setLikes(doc.data()?.likes);
+      setComments(doc.data()?.comments);
     });
     return unsubscribe;
   }, []);
@@ -68,6 +84,10 @@ export default function Tweet({ data, id }) {
           className="flex justify-center items-center space-x-2"
           onClick={(e) => {
             e.stopPropagation();
+            if (!user.username) {
+              dispatch(openLoginModal());
+              return;
+            }
             dispatch(
               setCommentTweet({
                 id: id,
@@ -94,6 +114,14 @@ export default function Tweet({ data, id }) {
           )}
           {likes.length > 0 && <span>{likes.length}</span>}
         </div>
+        {user.uid === data?.uid && (
+          <div
+            className="cursor-pointer hover:text-red-600"
+            onClick={deleteTweet}
+          >
+            <TrashIcon className="w-5" />
+          </div>
+        )}
         <ChartBarIcon className="w-5 cursor-not-allowed" />
         <UploadIcon className="w-5 cursor-not-allowed" />
       </div>
