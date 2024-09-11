@@ -78,6 +78,7 @@ export default function Tweet({ data, id }) {
         timestamp={data?.timestamp?.toDate()}
         text={data?.tweet}
         photoUrl={data?.photoUrl}
+        image={data?.image}
       />
       <div className="p-3 ml-16 text-gray-500 flex space-x-14">
         <div
@@ -129,7 +130,14 @@ export default function Tweet({ data, id }) {
   );
 }
 
-export function TweetHeader({ username, name, timestamp, text, photoUrl }) {
+export function TweetHeader({
+  username,
+  name,
+  timestamp,
+  text,
+  photoUrl,
+  image,
+}) {
   return (
     <div className="flex space-x-3 p-3 border-gray-700">
       <img className="w-11 h-11 rounded-full object-cover" src={photoUrl} />
@@ -141,6 +149,12 @@ export function TweetHeader({ username, name, timestamp, text, photoUrl }) {
           <Moment fromNow>{timestamp}</Moment>
         </div>
         <span>{text}</span>
+        {image && (
+          <img
+            className="object-cover rounded-md mt-3 max-h-80 border border-gray-700"
+            src={image}
+          />
+        )}
       </div>
     </div>
   );

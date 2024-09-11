@@ -19,6 +19,7 @@ export async function getServerSideProps(context) {
     text: data.tweet,
     comments: data.comments || null,
     timestamp: JSON.stringify(data.timestamp.toDate()),
+    image: data.image || null,
   };
   return {
     props: {
@@ -67,10 +68,16 @@ export default function CommentsPage({ tweetData }) {
                   <Moment fromNow>{JSON.parse(tweetData.timestamp)}</Moment>
                 </div>
                 <span className="text-2xl">{tweetData.text}</span>
+                {tweetData.image && (
+                  <img
+                    className="object-cover rounded-md mt-3 max-h-80 border border-gray-700"
+                    src={tweetData.image}
+                  />
+                )}
               </div>
             </div>
           </div>
-          <div className="flex justify-between items-center border-b border-gray-700 p-2">
+          <div className="flex justify-between items-center border-b border-gray-700 p-2 hover:cursor-not-allowed">
             <div className="flex justify-center items-center p-1 space-x-2">
               <img
                 className="w-12 h-12 rounded-full object-cover"
