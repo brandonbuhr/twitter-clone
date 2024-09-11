@@ -1,4 +1,12 @@
 import { closeCommentModal } from "@/redux/modalSlice";
+import {
+  CalendarIcon,
+  ChartBarIcon,
+  EmojiHappyIcon,
+  LocationMarkerIcon,
+  PhotographIcon,
+} from "@heroicons/react/outline";
+import { XIcon } from "@heroicons/react/solid";
 import { Modal } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,13 +21,24 @@ export default function CommentModal() {
         onClose={() => dispatch(closeCommentModal())}
       >
         <div
-          className="w-full h-full sm:w-[600px] sm:h-[386px]
+          className="w-full h-full relative sm:w-[600px] sm:h-[386px]
         rounded-lg bg-black border border-gray-500 text-white
-        sm:p-10
+        sm:p-10 p-4
         "
         >
-          <div>
-            <div className="flex space-x-3">
+          <div
+            className="absolute w-[2px] h-[77px] bg-gray-500
+          left-[40px] top-[96px] sm:left-[64px] sm:top-[120px]
+          "
+          ></div>
+          <div
+            onClick={() => dispatch(closeCommentModal())}
+            className="absolute top-4 cursor-pointer"
+          >
+            <XIcon className="w-6" />
+          </div>
+          <div className="mt-8">
+            <div className="flex space-x-3 w-full">
               <img
                 className="w-12 h-12 object-cover rounded-full"
                 src="/assets/kylie.png"
@@ -33,6 +52,51 @@ export default function CommentModal() {
                 <h1 className="text-gray-500 text-[15px] mt-2">
                   Replying to <span className="text-[#1b9bf0]">@xgs</span>
                 </h1>
+              </div>
+            </div>
+          </div>
+          <div className="mt-11">
+            <div className="flex space-x-3">
+              <img
+                className="w-12 h-12 object-cover rounded-full"
+                src="/assets/kylie.png"
+              />
+              <div className="w-full">
+                <textarea
+                  placeholder="Tweet your reply"
+                  className="w-full bg-transparent resize-none text-lg outline-none
+               "
+                />
+                <div
+                  className="flex justify-between border-t border-gray-700
+                pt-4
+                "
+                >
+                  <div className="flex space-x-0">
+                    <div className="iconAnimation">
+                      <PhotographIcon className="h-[22px] text-[#1d9bf0]" />
+                    </div>
+                    <div className="iconAnimation">
+                      <ChartBarIcon className="h-[22px] text-[#1d9bf0]" />
+                    </div>
+                    <div className="iconAnimation">
+                      <EmojiHappyIcon className="h-[22px] text-[#1d9bf0]" />
+                    </div>
+                    <div className="iconAnimation">
+                      <CalendarIcon className="h-[22px] text-[#1d9bf0]" />
+                    </div>
+                    <div className="iconAnimation">
+                      <LocationMarkerIcon className="h-[22px] text-[#1d9bf0]" />
+                    </div>
+                  </div>
+                  <button
+                    className="bg-[#1d9bf0] rounded-full px-4 py-1.5
+            disabled:opacity-50
+            "
+                  >
+                    Tweet
+                  </button>
+                </div>
               </div>
             </div>
           </div>
